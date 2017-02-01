@@ -29,7 +29,8 @@
 @endsection
 
 @section('scripts')
-    <script>
+<!-- turn this into a vue component -->
+    <script> 
         $("#maze-generate").click(function(e){
             axios.post("/").then(function(response){
                 $("#maze-display").html(
