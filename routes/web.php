@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MazeController@index');
+Route::post('/', 'MazeController@generateMaze');
