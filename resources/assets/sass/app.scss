@@ -7,3 +7,9 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Custom SCSS
+.maze__display{
+	line-height: 1;
+	font-family: monospace;
+}

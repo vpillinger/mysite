@@ -22,7 +22,7 @@
         </div>
        
         <div class="row">
-            <div id="maze-display" class="col-sm-6"></div>
+            <div id="maze-display" class="col-sm-6 maze__display"></div>
             <div id="maze-description" class="col-sm-6"><!-- Maze Ratings here--></div>
         </div>
     </div>
@@ -31,10 +31,52 @@
 @section('scripts')
 <!-- turn this into a vue component -->
     <script> 
+        function convertMazetoHTML(maze){
+            let html = "";
+
+            for(row of maze){
+                html += "&nbsp;_";
+            }
+            html += "<br />";
+
+            for(row = 0; row < maze.length; row++){
+                html += "|";
+                for (column = 0; column < maze[row].length; column++){     
+                    let south_neighbor = JSON.stringify([row + 1, column]);
+                    let east_neighbor = JSON.stringify([row, column + 1]);
+                    let connects_south = false;
+                    let connects_east = false
+                    let cell = maze[row][column];
+                    console.log(cell);
+                    for(n = 0; n < cell.length; n++) {
+                        let neighbor = cell[n];
+                        if(south_neighbor === JSON.stringify(neighbor)){
+                            connects_south = true;
+                        }
+                        if(east_neighbor === JSON.stringify(neighbor)){
+                            connects_east = true;
+                        }
+                    }
+                    if (connects_south){
+                        html += "&nbsp;";
+                    }else {
+                        html += "_";
+                    }
+                    if (connects_east){
+                        html += "&nbsp;";
+                    }else {
+                        html += "|";
+                    }
+                }
+                html += "<br />";
+            }
+            return html;   
+        }
+
         $("#maze-generate").click(function(e){
             axios.post("/").then(function(response){
                 $("#maze-display").html(
-                    response.data.replace(/\n/g, "<br />")
+                    convertMazetoHTML(response.data)
                 );
             });    
         });

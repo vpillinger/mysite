@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Maze;
 
 class MazeController extends Controller
 {
@@ -22,6 +23,6 @@ class MazeController extends Controller
     * @return string
     */
     public function generateMaze(){
-    	return "fool this is not implemented \n muahahahahah";
+    	return (string) Maze::generateMaze(10);
     }
 }
