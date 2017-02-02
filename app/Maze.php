@@ -11,13 +11,13 @@ class Maze
 	Public static function generateMaze($length){
 		$directions = ['N' => [0,1], 'S' => [0,-1], 'E' => [1,0], 'W' => [-1,0]];
 		$adjacency_list = array_fill(0, $length, array_fill(0, $length, null)); //keys have to be in correct order
-		$cells = [[mt_rand(0, $length), mt_rand(0, $length)]];
+		$cells = [[mt_rand(0, $length - 1), mt_rand(0, $length - 1)]];
 		while(!empty($cells)){
-			$cell_complete = true;
 			$cell_key = array_rand($cells);
 			$cell = $cells[$cell_key];
 			$x = $cell[0];
 			$y = $cell[1];
+			$cell_complete = true;
 			shuffle($directions);
 			foreach($directions as $direction){
 				$new_x = $x + $direction[0];
@@ -34,10 +34,7 @@ class Maze
 				unset($cells[$cell_key]);
 			}
 		}
-		// Unfortunatly, since the keys were not created
-		foreach($adjacency_list as $x => $y){
-			ksort($y);
-		}
+
 		return new Maze($adjacency_list);
 	}
 
