@@ -14,7 +14,7 @@
             <p>
                 This page generates mazes using the <a href="http://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm">
                 growing tree maze generation algorithm</a>. A flexible algorithm that allows mazes of many different types to be created
-                by simply changing the way that cells are selected from the a set. 
+                by simply changing the way that cells are selected from the set of already visted cells. The current implementation randomly selects cells from the set, leading to a maze with many dead ends.
                 <br>
                 Click below to generate a maze.
             </p>
@@ -31,6 +31,34 @@
 @section('scripts')
 <!-- turn this into a vue component -->
     <script> 
+        function convertCelltoHTML(row, column, cell) {
+            let south_neighbor = JSON.stringify([row + 1, column]);
+            let east_neighbor = JSON.stringify([row, column + 1]);
+            let connects_south = false;
+            let connects_east = false
+            for(n = 0; n < cell.length; n++) {
+                let neighbor = cell[n];
+                if(south_neighbor === JSON.stringify(neighbor)){
+                    connects_south = true;
+                }
+                if(east_neighbor === JSON.stringify(neighbor)){
+                    connects_east = true;
+                }
+            }
+            let html = "";
+            if (connects_south){
+                html += "&nbsp;";
+            }else {
+                html += "_";
+            }
+            if (connects_east){
+                html += "&nbsp;";
+            }else {
+                html += "|";
+            }
+            return html;
+        }
+
         function convertMazetoHTML(maze){
             let html = "";
 
@@ -42,31 +70,7 @@
             for(row = 0; row < maze.length; row++){
                 html += "|";
                 for (column = 0; column < maze[row].length; column++){     
-                    let south_neighbor = JSON.stringify([row + 1, column]);
-                    let east_neighbor = JSON.stringify([row, column + 1]);
-                    let connects_south = false;
-                    let connects_east = false
-                    let cell = maze[row][column];
-                    console.log(cell);
-                    for(n = 0; n < cell.length; n++) {
-                        let neighbor = cell[n];
-                        if(south_neighbor === JSON.stringify(neighbor)){
-                            connects_south = true;
-                        }
-                        if(east_neighbor === JSON.stringify(neighbor)){
-                            connects_east = true;
-                        }
-                    }
-                    if (connects_south){
-                        html += "&nbsp;";
-                    }else {
-                        html += "_";
-                    }
-                    if (connects_east){
-                        html += "&nbsp;";
-                    }else {
-                        html += "|";
-                    }
+                    html += convertCelltoHTML(row, column, maze[row][column])
                 }
                 html += "<br />";
             }
