@@ -9,7 +9,14 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 // Custom SCSS
-.maze__display{
+.divider-left {
+	border-left: 1px solid $text-color;
+}
+.divider-right {
+	border-right: 1px solid $text-color;
+}
+
+.maze__display {
 	line-height: 1;
 	font-family: monospace;
 }
