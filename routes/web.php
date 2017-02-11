@@ -11,5 +11,7 @@
 |
 */
 
-Route::get('/', 'MazeController@index');
-Route::post('/', 'MazeController@generateMaze');
+Route::get('/', 'ExamplesController@index');
+
+Route::get('/mazeGenerator', 'ExamplesController@viewMaze');
+Route::post('/mazeGenerator', 'ExamplesController@generateMaze');

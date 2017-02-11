@@ -12,7 +12,7 @@
     </head>
 
     <body>
-        @component('navbar')
+        @component('components.navbar')
         @endcomponent
 
         @yield('content')
