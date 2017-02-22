@@ -8,7 +8,7 @@ class Maze
 	/**
 	* Generate a new square Maze object of the given length. 
 	*/
-	Public static function generateMaze($length){
+	public static function generateMaze($length){
 		$directions = ['N' => [0,1], 'S' => [0,-1], 'E' => [1,0], 'W' => [-1,0]];
 		$adjacency_list = array_fill(0, $length, array_fill(0, $length, null)); //keys have to be in correct order
 		$cells = [[mt_rand(0, $length - 1), mt_rand(0, $length - 1)]];

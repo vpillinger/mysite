@@ -78,7 +78,7 @@
         }
 
         $("#maze-generate").click(function(e){
-            axios.post("/").then(function(response){
+            axios.post("/mazeGenerator").then(function(response){
                 $("#maze-display").html(
                     convertMazetoHTML(response.data)
                 );
